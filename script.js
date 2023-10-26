@@ -19,8 +19,14 @@ function addemployee(employee){
     const options = document.createElement("td");
     let deletebutton = document.createElement("button");
     deletebutton.innerText = "delete";
+    
+    let editButton = document.createElement("button");
+    editButton.innerText = "edit";
+
     deletebutton.addEventListener("click",clearrecord);
-    options.appendChild(deletebutton)
+    editButton.addEventListener("click", onEditClick);
+    options.appendChild(deletebutton);
+    options.appendChild(editButton);
 tr.appendChild(options);
 tbody.append(tr);
 }
@@ -35,7 +41,13 @@ function onsubmit(event){
         role: form.role.value,
         email: form.email.value
     }
-    addemployee(employeedata);
+    if(editOptions.isEditing){
+        editEmployee(employeedata);
+    }
+    else {
+        addemployee(employeedata);
+    }
+    form.reset();
 }
 
 form.addEventListener("submit",onsubmit);
